@@ -19,3 +19,27 @@ class Region < ActiveEnum::Base
   end
 
 end
+
+
+class Location < ActiveEnum::Base
+  belongs_to :region
+  
+  attr_reader :id, :name, :region_id
+  
+  values ([
+    # NY
+    [ 1, 'Manhattan', 3],
+    [ 2, 'Brooklyn', 3],
+    [ 3, 'Bronx', 3],
+    # SF
+    [ 4, 'San Francisco', 1],
+    [ 5, 'East Bay', 1],
+    [ 6, 'South Bay', 1],
+    # LA
+    [ 7, 'Los Angeles County', 2],
+    [ 8, 'Orange County', 2],
+    # Chicago
+    [ 9, "Greater Chicago Area", 4] 
+  ])
+
+end

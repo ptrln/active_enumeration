@@ -21,7 +21,7 @@ module ActiveEnum
     end
 
     def self.to_a
-      all.map { |e| [e.to_s, e.instance_variable_get("@active_enum_id")]}
+      all.map { |e| [e.to_s, e.instance_variable_get("@active_enum_id")] }
     end
 
     def symbol
@@ -72,7 +72,7 @@ module ActiveEnum
 
           unless active_enum_attributes.index(:symbol)
             @active_enum_symbols[values_key] = k.to_sym
-            self.send(:define_method, "symbol") { self.class.active_enum_symbols[self.instance_variable_get("@active_enum_id")] }
+            self.send(:define_method, :symbol) { self.class.active_enum_symbols[self.instance_variable_get("@active_enum_id")] }
           end
 
           self.send(:define_singleton_method, k) { self.find(values_key) }
@@ -91,7 +91,6 @@ module ActiveEnum
       elsif values.class == Array
         values.each do |v|
           v = [v] unless v.class == Array
-
 
           values_key = v[active_enum_index_location].to_i
 
