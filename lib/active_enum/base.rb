@@ -1,0 +1,6 @@
+class ActiveEnum::Base
+
+
+
+
+end
