@@ -10,5 +10,5 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://rubygems.org/gems/active-enum'
   s.license     = 'MIT'
 
-  s.add_development_dependency 'active_support'
+  s.add_runtime_dependency 'activesupport'
 end

@@ -3,6 +3,33 @@ require 'active_support/inflector'
 module ActiveEnum
   class Base
 
+    def self.find(id)
+      id = id.to_i
+      @instances ||= {}
+      unless @instances[id] || !@active_enum_values[id]
+        @instances[id] = self.new *@active_enum_values[id]
+      end
+      @instances[id]
+    end
+
+    def self.all
+      @active_enum_values.keys.map { |id| self.find(id) }
+    end
+
+    def self.count
+      @active_enum_values.count
+    end
+
+    def self.to_a
+      all.map { |e| [e.to_s, e.instance_variable_get("@active_enum_id")]}
+    end
+
+    def symbol
+      self.instance_variable_get("@symbol")
+    end
+
+    protected
+
     def self.attr_reader(*attributes)
       super
 
@@ -23,12 +50,17 @@ module ActiveEnum
       @active_enum_attributes
     end
 
+    def self.active_enum_symbols
+      @active_enum_symbols
+    end
+
     def self.active_enum_index_location
       active_enum_attributes.index(:id) || 0
     end
 
     def self.values(values)
       @active_enum_values ||= Hash.new
+      @active_enum_symbols ||= Hash.new
 
       if values.class == Hash
         values.each_with_index do |(k, v), values_index|
@@ -37,6 +69,11 @@ module ActiveEnum
           values_key = v[active_enum_index_location].to_i
 
           @active_enum_values[values_key] = v
+
+          unless active_enum_attributes.index(:symbol)
+            @active_enum_symbols[values_key] = k.to_sym
+            self.send(:define_method, "symbol") { self.class.active_enum_symbols[self.instance_variable_get("@active_enum_id")] }
+          end
 
           self.send(:define_singleton_method, k) { self.find(values_key) }
 
@@ -47,7 +84,7 @@ module ActiveEnum
           #   end
           # end
 
-          self.send(:define_method, "#{k}?") { self.instance_variable_get("@active_enum_id") == values_key}
+          self.send(:define_method, "#{k}?") { self.instance_variable_get("@active_enum_id") == values_key }
 
           const_set(k.to_s.upcase, values_key)
         end
@@ -75,15 +112,6 @@ module ActiveEnum
           ids.map { |id| self.find(id) }
         end
       end
-    end
-
-    def self.find(id)
-      id = id.to_i
-      @instances ||= {}
-      unless @instances[id] || !@active_enum_values[id]
-        @instances[id] = self.new *@active_enum_values[id]
-      end
-      @instances[id]
     end
 
     def self.belongs_to(name, options = {})
@@ -114,20 +142,6 @@ module ActiveEnum
         klass.send("belongs_to_#{self.class.name.underscore}".upcase)[self.id]
       }
     end
-
-    def self.all
-      @active_enum_values.keys.map { |id| self.find(id) }
-    end
-
-    def self.count
-      @active_enum_values.count
-    end
-
-    def self.to_a
-      all.map { |e| [e.to_s, e.instance_variable_get("@active_enum_id")]}
-    end
-
-
 
   end
 end
