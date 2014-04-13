@@ -2,18 +2,18 @@ require 'test/unit'
 require 'active-enum'
 
 class BaseTest < Test::Unit::TestCase
-  # def test_english_hello
-  #   assert_equal "hello world",
-  #     Hola.hi("english")
-  # end
 
-  # def test_any_hello
-  #   assert_equal "hello world",
-  #     Hola.hi("ruby")
-  # end
+  class << self
+    def startup
+      Location
+      Region
+    end
+  end
 
-  # def test_spanish_hello
-  #   assert_equal "hola mundo",
-  #     Hola.hi("spanish")
-  # end
+  def test_initialize
+    p 'initialize'
+  end
+
+  # no tests yet...
+  # TODO: write some tests
 end
