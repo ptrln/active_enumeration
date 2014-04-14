@@ -1,7 +1,7 @@
 require 'active_support/inflector'
-require 'active_enum/base'
+require 'better_enum/base'
 
-module ActiveEnum
+module BetterEnum
 
   def self.extended(receiver)
     receiver.extend ClassMethods
@@ -9,7 +9,7 @@ module ActiveEnum
 
   module ClassMethods
 
-    def has_active_enum_for(name, options = {})
+    def has_better_enum_for(name, options = {})
       class_name = (options[:class_name] || name.to_s.camelize).to_s
       foreign_key = (options[:foreign_key] || "#{name}_id").to_s
 

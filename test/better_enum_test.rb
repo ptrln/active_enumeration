@@ -1,7 +1,7 @@
 require 'test/unit'
-require 'active_enum'
+require 'better_enum'
 
-class ActiveEnumTest < Test::Unit::TestCase
+class BetterEnumTest < Test::Unit::TestCase
 
   def test_initialize
     assert_equal true, true

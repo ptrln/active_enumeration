@@ -1,4 +1,4 @@
-class Region < ActiveEnum::Base
+class Region < BetterEnum::Base
   has_many :locations
 
   attr_reader :id, :name, :area_name, :time_zone
@@ -21,7 +21,7 @@ class Region < ActiveEnum::Base
 end
 
 
-class Location < ActiveEnum::Base
+class Location < BetterEnum::Base
   belongs_to :region
   
   attr_reader :id, :name, :region_id

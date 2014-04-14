@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'rake'
 require 'rake/testtask'
-require File.expand_path('../lib/active_enum/version', __FILE__)
+require File.expand_path('../lib/better_enum/version', __FILE__)
 
 Rake::TestTask.new(:test) do |test|
   test.libs << 'lib' << 'test'
@@ -12,18 +12,18 @@ task :default => 'test'
 
 desc 'Builds the gem'
 task :build do
-  sh "gem build active_enum.gemspec"
+  sh "gem build better_enum.gemspec"
 end
 
 desc 'Builds and installs the gem'
 task :install => :build do
-  sh "gem install ./active_enum-#{ActiveEnum::VERSION}.gem"
+  sh "gem install ./better_enum-#{BetterEnum::VERSION}.gem"
 end
 
 desc 'Tags version, pushes to remote, and pushes gem'
 task :release => :build do
-  sh "git tag v#{ActiveEnum::VERSION}"
+  sh "git tag v#{BetterEnum::VERSION}"
   sh "git push origin master"
-  sh "git push origin v#{ActiveEnum::VERSION}"
-  sh "gem push active_enum-#{ActiveEnum::VERSION}.gem"
+  sh "git push origin v#{BetterEnum::VERSION}"
+  sh "gem push better_enum-#{BetterEnum::VERSION}.gem"
 end
