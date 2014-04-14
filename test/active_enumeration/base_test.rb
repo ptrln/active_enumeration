@@ -1,5 +1,5 @@
 require 'test/unit'
-require 'better_enum'
+require 'active_enumeration'
 require 'test_enums'
 
 class BaseTest < Test::Unit::TestCase

@@ -1,27 +1,27 @@
 require 'active_support/inflector'
 
-module BetterEnum
+module ActiveEnumeration
   class Base
 
     def self.find(id)
       id = id.to_i
       @instances ||= {}
-      unless @instances[id] || !@better_enum_values[id]
-        @instances[id] = self.new *@better_enum_values[id]
+      unless @instances[id] || !@active_enumeration_values[id]
+        @instances[id] = self.new *@active_enumeration_values[id]
       end
       @instances[id]
     end
 
     def self.all
-      @better_enum_values.keys.map { |id| self.find(id) }
+      @active_enumeration_values.keys.map { |id| self.find(id) }
     end
 
     def self.count
-      @better_enum_values.count
+      @active_enumeration_values.count
     end
 
     def self.to_a
-      all.map { |e| [e.to_s, e.instance_variable_get("@better_enum_id")] }
+      all.map { |e| [e.to_s, e.instance_variable_get("@active_enumeration_id")] }
     end
 
     def symbol
@@ -32,34 +32,34 @@ module BetterEnum
 
     def self.attr_reader(*attributes)
       super
-      @better_enum_attributes ||= []
-      @better_enum_attributes.concat(attributes.map(&:to_sym))
+      @active_enumeration_attributes ||= []
+      @active_enumeration_attributes.concat(attributes.map(&:to_sym))
     end
 
     def initialize(*attributes)
-      key_index = self.class.better_enum_index_location
-      self.instance_variable_set("@better_enum_id", attributes[key_index].to_i)
+      key_index = self.class.active_enumeration_index_location
+      self.instance_variable_set("@active_enumeration_id", attributes[key_index].to_i)
 
-      self.class.better_enum_attributes.each_with_index do |attr_name, index|
+      self.class.active_enumeration_attributes.each_with_index do |attr_name, index|
         self.instance_variable_set("@#{attr_name}", attributes[index])
       end
     end
 
-    def self.better_enum_attributes
-      @better_enum_attributes
+    def self.active_enumeration_attributes
+      @active_enumeration_attributes
     end
 
-    def self.better_enum_symbols
-      @better_enum_symbols
+    def self.active_enumeration_symbols
+      @active_enumeration_symbols
     end
 
-    def self.better_enum_index_location
-      better_enum_attributes.index(:id) || 0
+    def self.active_enumeration_index_location
+      active_enumeration_attributes.index(:id) || 0
     end
 
     def self.values(values)
-      @better_enum_values ||= Hash.new
-      @better_enum_symbols ||= Hash.new
+      @active_enumeration_values ||= Hash.new
+      @active_enumeration_symbols ||= Hash.new
 
       if values.class == Hash
         values.each_with_index { |(k, v), i| handle_hash_values(k, v, i) }
@@ -85,8 +85,8 @@ module BetterEnum
         klass.find(self.send(foreign_key))
       }
 
-      self.send(:define_singleton_method, "better_enum_belongs_to_#{class_name.underscore}".upcase) {
-        var_name = "@better_enum_belongs_to_#{class_name.underscore}"
+      self.send(:define_singleton_method, "active_enumeration_belongs_to_#{class_name.underscore}".upcase) {
+        var_name = "@active_enumeration_belongs_to_#{class_name.underscore}"
         return instance_variable_get(var_name) if instance_variable_get(var_name)
         hash = Hash.new {Array.new}
         self.all.each do |obj|
@@ -101,7 +101,7 @@ module BetterEnum
       class_name = (options[:class_name] || name.to_s.singularize.camelize).to_s
       self.send(:define_method, name) {
         klass = class_name.constantize
-        klass.send("better_enum_belongs_to_#{self.class.name.underscore}".upcase)[self.id]
+        klass.send("active_enumeration_belongs_to_#{self.class.name.underscore}".upcase)[self.id]
       }
     end
 
@@ -109,25 +109,25 @@ module BetterEnum
 
     def self.handle_hash_values(k, v, i)
       v = [v] unless v.class == Array
-      values_key = v[better_enum_index_location].to_i
-      @better_enum_values[values_key] = v
+      values_key = v[active_enumeration_index_location].to_i
+      @active_enumeration_values[values_key] = v
 
-      unless better_enum_attributes.index(:symbol)
-        @better_enum_symbols[values_key] = k.to_sym
-        self.send(:define_method, :symbol) { self.class.better_enum_symbols[self.instance_variable_get("@better_enum_id")] }
+      unless active_enumeration_attributes.index(:symbol)
+        @active_enumeration_symbols[values_key] = k.to_sym
+        self.send(:define_method, :symbol) { self.class.active_enumeration_symbols[self.instance_variable_get("@active_enumeration_id")] }
       end
 
       self.send(:define_singleton_method, k) { self.find(values_key) }
 
-      self.send(:define_method, "#{k}?") { self.instance_variable_get("@better_enum_id") == values_key }
+      self.send(:define_method, "#{k}?") { self.instance_variable_get("@active_enumeration_id") == values_key }
 
       const_set(k.to_s.upcase, values_key)
     end
 
     def self.handle_array_values(v, i)
       v = [v] unless v.class == Array
-      values_key = v[better_enum_index_location].to_i
-      @better_enum_values[values_key] = v
+      values_key = v[active_enumeration_index_location].to_i
+      @active_enumeration_values[values_key] = v
     end
 
   end

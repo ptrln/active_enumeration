@@ -1,12 +1,12 @@
 class Person
-  extend BetterEnum
+  extend ActiveEnumeration
 
   attr_accessor :region_id, :home_region_id, :location_id, :previous_location_ids
 
-  has_better_enum_for :region
-  has_better_enum_for :home_region, class_name: "Region"
-  has_better_enum_for :last_location, class_name: "Location", foreign_key: "location_id"
-  has_better_enums_for :previous_locations, class_name: "Location"
+  has_active_enumeration_for :region
+  has_active_enumeration_for :home_region, class_name: "Region"
+  has_active_enumeration_for :last_location, class_name: "Location", foreign_key: "location_id"
+  has_active_enumerations_for :previous_locations, class_name: "Location"
 
   def initialize
     @region_id = 1
