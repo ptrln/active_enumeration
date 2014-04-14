@@ -12,7 +12,7 @@ class Region < BetterEnum::Base
 
   groups({
     :live => [1, 2],
-  });
+  })
 
   def to_s
     self.name
