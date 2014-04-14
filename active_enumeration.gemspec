@@ -1,9 +1,9 @@
 Gem::Specification.new do |s|
   s.name        = 'active_enumeration'
-  s.version     = '0.0.3'
+  s.version     = '0.0.4'
   s.date        = '2014-04-13'
   s.summary     = "ActiveEnumeration"
-  s.description = "A better way to create complex Ruby enumeration classes"
+  s.description = "A simpler way to create more complex Ruby enumerations, with ActiveRecord like syntax and associations."
   s.authors     = ["Peter Lin"]
   s.email       = 'peter@peterl.in'
   s.files       = ["lib/active_enumeration.rb", "lib/active_enumeration/base.rb"]

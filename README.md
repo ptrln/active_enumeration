@@ -1,7 +1,7 @@
 ActiveEnumeration
 =====================
 
-A better way to create more complex Ruby enumerations, with ActiveRecord like syntax and associations.
+A simpler way to create more complex Ruby enumerations, with ActiveRecord like syntax and associations.
 
 Author: Peter Lin - peter at ptrln.net
 
@@ -195,7 +195,7 @@ end
 
 ## Why did you make this gem?
 
-There are other similar solutions to the problem out there, but I did not find any that included associations between enumerations. I also found learning a new syntax kind of annoying, so I though it'll be nice to have everything work with an ActiveRecord like syntax.
+There are other similar solutions to the problem out there, but I did not find any that included associations between enumerations. I also found learning a new syntax kind of annoying, so I thought it'll be nice to have everything work with ActiveRecord like syntax.
 
 Benefits:
 
