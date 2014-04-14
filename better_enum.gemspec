@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'better_enum'
-  s.version     = '0.0.1'
+  s.version     = '0.0.2'
   s.date        = '2014-04-13'
   s.summary     = "BetterEnum"
   s.description = "A simple hello world gem"
