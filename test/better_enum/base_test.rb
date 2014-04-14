@@ -70,13 +70,13 @@ class BaseTest < Test::Unit::TestCase
     assert_equal Location.find(1).region, Region.find(3)
   end
 
-  def test_enum_constants
-    assert Region.respond_to?(:BAY_AREA)
-    assert Region.respond_to?(:LOS_ANGELES)
-    assert Region.respond_to?(:NEW_YORK)
-    assert Region.respond_to?(:CHICAGO)
+  def test_respond_to_enum_constants
+    assert defined?(Region::bay_area)
+    assert defined?(Region::los_angeles)
+    assert defined?(Region::new_york)
+    assert defined?(Region::chicago)
 
-    assert_equal Location.respond_to?(:BAY_AREA), false
+    assert_nil defined?(Location::BAY_AREA)
   end
 
   def test_enum_constants
