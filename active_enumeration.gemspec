@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'active_enumeration'
-  s.version     = '0.0.5'
+  s.version     = ActiveEnumeration::VERSION
   s.date        = '2014-04-13'
   s.summary     = "ActiveEnumeration"
   s.description = "A simpler way to create more complex Ruby enumerations, with ActiveRecord like syntax and associations."
