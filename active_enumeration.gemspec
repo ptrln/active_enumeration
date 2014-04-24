@@ -1,3 +1,5 @@
+require File.expand_path('../lib/active_enumeration/version', __FILE__)
+
 Gem::Specification.new do |s|
   s.name        = 'active_enumeration'
   s.version     = ActiveEnumeration::VERSION

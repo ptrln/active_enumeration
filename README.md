@@ -5,6 +5,9 @@ A simpler way to create more complex Ruby enumerations, with ActiveRecord like s
 
 Author: Peter Lin - peter at ptrln.net
 
+[![Build Status](https://secure.travis-ci.org/ptrln/active_enumeration.png)](http://travis-ci.org/ptrln/active_enumeration)
+
+
 ## Description
 
 There seems to be a lot of Ruby enumeration gems out there, but none of them solved what we needed, so I created this one to behave more similar to ActiveRecord models. You are able to define associations between enumerations, and any number of attributes, allowing much greater flexibility than existing solutions.
