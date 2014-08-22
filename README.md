@@ -136,6 +136,14 @@ This will create some nice stuff:
     Region.live
     #=> [#<Region:0x007f9258b7dd50 @active_enumeration_id=1, @id=1, @name="Bay Area", @area_name="San Francisco Bay Area", @time_zone="Pacific Time (US & Canada)">, #<Region:0x007f9258b86db0 @active_enumeration_id=2, @id=2, @name="Los Angeles", @area_name="Los Angeles Area", @time_zone="Pacific Time (US & Canada)">]
     ```
+
+*   You can filter your enumerations using 'where'.
+
+    ``` ruby
+    Location.where(region_id: 3, name: 'Manhattan')
+    #=> [#<Location:0x007f9258b9d448 @active_enumeration_id=1, @id=1, @name="Manhattan", @region_id=3>,
+    ```
+
 *   You can ask for the enumeration's count:
 
     ``` ruby
