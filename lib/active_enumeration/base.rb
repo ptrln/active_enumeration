@@ -12,6 +12,12 @@ module ActiveEnumeration
       @instances[id]
     end
 
+    def self.where(filters)
+      self.all.select do |enum|
+        filters.keys.all? { |k| enum.send(k) == filters[k] }
+      end
+    end
+
     def self.all
       @active_enumeration_values.keys.map { |id| self.find(id) }
     end

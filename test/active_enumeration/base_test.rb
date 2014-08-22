@@ -62,6 +62,14 @@ class BaseTest < Test::Unit::TestCase
     assert_equal Region.find(1).locations, [Location.find(4), Location.find(5), Location.find(6)]
   end
 
+  def test_where
+    assert_equal Location.where(region_id: 3), Region.find(3).locations
+  end
+
+  def test_where_empty_result
+    assert_equal Location.where(region_id: 10), []
+  end
+
   def test_responds_to_belongs_to
     assert Location.find(1).respond_to?(:region)
   end
