@@ -66,6 +66,10 @@ class BaseTest < Test::Unit::TestCase
     assert_equal Location.where(region_id: 3), Region.find(3).locations
   end
 
+  def test_where_multiple_filters
+    assert_equal Location.where(region_id: 3, name: 'Manhattan'), [Location.find(1)]
+  end
+
   def test_where_empty_result
     assert_equal Location.where(region_id: 10), []
   end
