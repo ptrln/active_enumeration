@@ -133,5 +133,13 @@ class BaseTest < Test::Unit::TestCase
     assert_equal Region.to_a, Region.all.map { |r| [r.name, r.id] }
   end
 
+  def test_custom_id_type
+    assert_not_nil Holiday.on(Date.new(2014,12,25))
+  end
+
+  def test_custom_id_name
+    assert_equal Holiday.on(Date.new(2014,12,25)).name, 'Christmas Day'
+  end
+
   # TODO: write more tests
 end

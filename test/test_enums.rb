@@ -43,3 +43,25 @@ class Location < ActiveEnumeration::Base
   ])
 
 end
+
+
+class Holiday < ActiveEnumeration::Base
+
+  attr_reader :date, :name
+  
+  values([
+    [Date.new(2014,11,27), "Thanksgiving"  ],
+    [Date.new(2014,12,24), "Christmas Eve" ],
+    [Date.new(2014,12,25), "Christmas Day" ],
+    [Date.new(2014,12,31), "New Year's Eve"],
+    [Date.new(2015, 1, 1), "New Year's Day"],
+  ])
+
+  def self.on(date)
+    unless date.is_a?(Date)
+      date = Date.parse(date)
+    end
+    find(date)
+  end
+
+end

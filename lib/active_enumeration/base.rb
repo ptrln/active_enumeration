@@ -4,7 +4,7 @@ module ActiveEnumeration
   class Base
 
     def self.find(id)
-      id = id.to_i
+      id = active_enumeration_to_id(id)
       @instances ||= {}
       unless @instances[id] || !@active_enumeration_values[id]
         @instances[id] = self.new *@active_enumeration_values[id]
@@ -44,7 +44,7 @@ module ActiveEnumeration
 
     def initialize(*attributes)
       key_index = self.class.active_enumeration_index_location
-      self.instance_variable_set("@active_enumeration_id", attributes[key_index].to_i)
+      self.instance_variable_set("@active_enumeration_id", self.class.active_enumeration_to_id(attributes[key_index]))
 
       self.class.active_enumeration_attributes.each_with_index do |attr_name, index|
         self.instance_variable_set("@#{attr_name}", attributes[index])
@@ -61,6 +61,10 @@ module ActiveEnumeration
 
     def self.active_enumeration_index_location
       active_enumeration_attributes.index(:id) || 0
+    end
+
+    def self.active_enumeration_to_id(id)
+      id
     end
 
     def self.values(values)
@@ -115,7 +119,7 @@ module ActiveEnumeration
 
     def self.handle_hash_values(k, v, i)
       v = [v] unless v.class == Array
-      values_key = v[active_enumeration_index_location].to_i
+      values_key = active_enumeration_to_id(v[active_enumeration_index_location])
       @active_enumeration_values[values_key] = v
 
       unless active_enumeration_attributes.index(:symbol)
@@ -132,7 +136,7 @@ module ActiveEnumeration
 
     def self.handle_array_values(v, i)
       v = [v] unless v.class == Array
-      values_key = v[active_enumeration_index_location].to_i
+      values_key = active_enumeration_to_id(v[active_enumeration_index_location])
       @active_enumeration_values[values_key] = v
     end
 
